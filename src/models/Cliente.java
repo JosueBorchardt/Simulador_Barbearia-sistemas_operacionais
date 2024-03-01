@@ -5,18 +5,28 @@ public class Cliente extends Thread {
     private int tempo_de_corte;
     private Barbearia barbearia;
     
-    public Cliente(int id_cliente) {
+    public Cliente(int id_cliente, Barbearia barbearia) {
         this.id_cliente = id_cliente;
         this.tempo_de_corte = (int) (Math.random() * 3000 + 3000);
+        this.barbearia = barbearia;
+        start();
     }
 
     public long getId() {
         return id_cliente;
     }
 
+    public int getTempoDeCorte() {
+        return tempo_de_corte;
+    }
+
     @Override
     public void run() {
-        
+        try{
+            barbearia.clienteEntra(this);
+        } catch(InterruptedException e){
+            e.printStackTrace();
+        }
     }
 
 }
