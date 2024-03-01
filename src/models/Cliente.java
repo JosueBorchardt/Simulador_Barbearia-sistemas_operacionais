@@ -12,21 +12,16 @@ public class Cliente extends Thread {
         start();
     }
 
+    @Override
+    public void run() {
+        barbearia.clienteEntra(this);
+    }
+
     public long getId() {
         return id_cliente;
     }
 
     public int getTempoDeCorte() {
         return tempo_de_corte;
-    }
-
-    @Override
-    public void run() {
-        try{
-            barbearia.clienteEntra(this);
-        } catch(InterruptedException e){
-            e.printStackTrace();
-        }
-    }
-
+    }    
 }

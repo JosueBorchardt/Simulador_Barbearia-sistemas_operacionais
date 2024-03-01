@@ -2,44 +2,39 @@ package models;
 
 
 public class Barbeiro extends Thread {
-    private final int id_barbeiro;
+    //private final int id_barbeiro;
     private Cliente cliente_atual;
     private Barbearia barbearia;
 
-    public Barbeiro(int id_barbeiro, Barbearia barbearia){
-        this.id_barbeiro = id_barbeiro;
+    public Barbeiro(Barbearia barbearia){
         cliente_atual = null;
-        this.barbearia = barbearia;
-        //this.start();  
+        this.barbearia = barbearia;  
     }
 
     @Override
         public void run () {
             try {
-                //while(true) {
-                //if(cliente_atual != null) {
-                System.out.println("Cliente " + cliente_atual.getId() + " está cortando cabelo");
-                cortarCabelo();
-                barbearia.clienteAtendido(this, cliente_atual);
-                //}
-                //}
+                do {
+                    System.out.println(cliente_atual.getId() + " cortar cabelo");
+                    cortarCabelo();
+                    barbearia.finalizarCliente_chamarProximo(this);
+                }while(barbearia.temClienteNaFilaDeEspera());
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
     }
 
     public void atenderCliente(Cliente cliente) {
-        this.cliente_atual = cliente;
+        cliente_atual = cliente;
+        System.out.println(cliente_atual.getId() + " atendido por barbeiro");
+    }
+
+    public void dispensarCliente() {
+        cliente_atual = null;
     }
 
     public void cortarCabelo() throws InterruptedException {
         barbearia.solicitarUtensilios();
-        Thread.sleep(cliente_atual.getTempoDeCorte());
-        barbearia.clienteAtendido(this, cliente_atual);       
+        Thread.sleep(cliente_atual.getTempoDeCorte());              
     }
-
-    public void dispensarCliente() {
-        this.cliente_atual = null;
-    }
-
 }

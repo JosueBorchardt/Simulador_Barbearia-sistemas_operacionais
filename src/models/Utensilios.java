@@ -6,9 +6,9 @@ public class Utensilios {
     private Semaphore pentes;
     private Semaphore tesouras;
 
-    public Utensilios(int numero_pentes_tesouras) {
-        pentes = new Semaphore(numero_pentes_tesouras);
-        tesouras = new Semaphore(numero_pentes_tesouras);
+    public Utensilios(int num_pentes_tesouras) {
+        pentes = new Semaphore(num_pentes_tesouras);
+        tesouras = new Semaphore(num_pentes_tesouras);
     }
 
     public boolean utensiliosDiponiveis() {
@@ -23,7 +23,5 @@ public class Utensilios {
     public void liberarUtensilios() {
         pentes.release();
         tesouras.release();
-    }
-
-    
+    }    
 }
