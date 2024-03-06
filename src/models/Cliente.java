@@ -6,10 +6,9 @@ public class Cliente extends Thread {
     private Barbearia barbearia;
     
     public Cliente(int id_cliente, Barbearia barbearia) {
-        this.id_cliente = id_cliente;
+        this.id_cliente = id_cliente + 1;
         this.tempo_de_corte = (int) (Math.random() * 3000 + 3000);
         this.barbearia = barbearia;
-        start();
     }
 
     @Override
